@@ -19,7 +19,7 @@ def get_available(building_name, url):
     df.replace('\n', ' ', regex=True)
 
     cur_time = str(datetime.datetime.today().replace(microsecond=0))
-    df['Bedrooms'].str.extract('(\d+)').astype(int)
+    df['Bedrooms'] = df['Bedrooms'].str.extract('(\d+)').astype(int)
     df.insert(0, 'Time', cur_time)
     df.insert(1, 'Building', building_name)
     df.insert(3, 'Url', url)
@@ -72,7 +72,7 @@ def main():
         for building in buildings:
             name = building['name']
             url = building['url']
-            print(name + ": " + url)
+            # print(name + ": " + url)
             try:
                 df = pd.concat([df, get_available(name, url)], ignore_index=True)
             except:
